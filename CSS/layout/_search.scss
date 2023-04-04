@@ -1,0 +1,264 @@
+.search {
+  &__inputContainer {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $color-lightGray;
+    border-radius: $border-radius;
+    margin-bottom: 25px;
+
+    &__tags {
+      margin-bottom: 15px;
+    }
+
+    input {
+      width: 90%;
+      border: none;
+      background-color: $color-lightGray;
+      font-size: 18px;
+      padding-left: 2%;
+
+      &:focus,
+      &:focus-visible {
+        outline: none;
+      }
+
+      ::placeholder {
+        color: black;
+        font-size: 18px;
+      }
+    }
+
+    i {
+      font-size: 28px;
+      padding-right: 2%;
+    }
+  }
+
+  &__advanced {
+    display: flex;
+    gap: 2%;
+    width: 100%;
+  }
+
+  &__tags {
+    display: flex;
+    flex-direction: column;
+
+    .tagsSelected {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 15px;
+
+      div {
+        height: 40px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 0.2rem 0.5rem;
+        color: white;
+        border-radius: $border-radius;
+
+        button:hover {
+          color: red;
+        }
+      }
+
+      &--ingredients {
+        div {
+          background-color: $color-ingredient;
+          margin-bottom: 15px;
+        }
+      }
+
+      &--devices {
+        div {
+          background-color: $color-devices;
+          margin-bottom: 15px;
+        }
+      }
+
+      &--ustensils {
+        div {
+          background-color: $color-ustensils;
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+}
+
+.advancedSearchByTag {
+  width: 13%;
+  border-radius: $border-radius;
+  position: relative;
+
+  &--ingredient,
+  &--ingredient input {
+    background-color: $color-ingredient;
+  }
+
+  &--devices,
+  &--devices input {
+    background-color: $color-devices;
+  }
+
+  &--ustensils,
+  &--ustensils input {
+    background-color: $color-ustensils;
+  }
+
+  .inputContainer {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    input {
+      width: 85%;
+      padding: 0;
+      padding-left: 10%;
+      border: none;
+      font-size: 18px;
+      color: white;
+
+      &:focus,
+      &:focus-visible {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: white;
+      }
+    }
+
+    .chevron {
+      position: absolute;
+      top: 50%;
+      right: 5%;
+      transform: translateY(-50%);
+      color: white;
+
+      svg {
+        transition: transform 0.5s ease-in-out;
+      }
+    }
+
+    &__tagContainer {
+      position: absolute;
+      width: 100%;
+      margin-top: -10px;
+      border-radius: $border-radius;
+      max-height: 400px;
+      overflow-y: auto;
+      z-index: 1;
+
+      /* width */
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgb(27, 27, 27);
+        border-radius: $border-radius;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: $color-scrollBar;
+        border-radius: 10px;
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: $color-scrollBar;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 10px;
+        justify-content: space-between;
+
+        li {
+          font-size: 18px;
+          color: white;
+
+          button {
+            width: 100%;
+            height: 100%;
+            padding: 5px 0px;
+          }
+        }
+
+        .centeredText {
+          padding-left: 15%;
+        }
+
+        .liWithLeftPadding {
+          padding-left: 9%;
+        }
+      }
+    }
+  }
+
+  &--visible {
+    width: 50%;
+
+    .inputContainer {
+      input {
+        padding-left: 5%;
+
+        &::placeholder {
+          color: $color-lightGray;
+          opacity: 0.8;
+        }
+      }
+
+      .chevron {
+        right: 5%;
+
+        svg {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .invisibleByInputSearchInTag {
+    display: none;
+  }
+
+  .ingredientTagContainer {
+    background-color: $color-ingredient;
+
+    button:hover {
+      background-color: darken($color: $color-ingredient, $amount: 20%);
+    }
+  }
+
+  .devicesTagContainer {
+    background-color: $color-devices;
+
+    button:hover {
+      background-color: darken($color: $color-devices, $amount: 20%);
+    }
+  }
+
+  .ustensilsTagContainer {
+    background-color: $color-ustensils;
+
+    button:hover {
+      background-color: darken($color: $color-ustensils, $amount: 20%);
+    }
+  }
+}

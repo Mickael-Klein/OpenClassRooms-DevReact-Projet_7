@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS/page/index.css" />
+    <script
+      src="https://kit.fontawesome.com/c29ae20713.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>OCR P7 Les petits plats</title>
+  </head>
+  <body>
+    <header>
+      <div class="imgContainer">
+        <img src="Assets/Image/toque.png" alt="Icone toque de chef" />
+      </div>
+      <h1>Les petits plats</h1>
+    </header>
+    <main>
+      <section id="search">
+        <div class="search__inputContainer">
+          <input
+            type="text"
+            id="search__input"
+            placeholder="Rechercher une recette"
+          />
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="search__tags">
+          <div class="tagsSelected tagsSelected--ingredients"></div>
+          <div class="tagsSelected tagsSelected--devices"></div>
+          <div class="tagsSelected tagsSelected--ustensils"></div>
+        </div>
+        <div class="search__advanced">
+          <div class="advancedSearchByTag advancedSearchByTag--ingredient">
+            <button class="inputContainer">
+              <input
+                type="text"
+                id="input--ingredient"
+                placeholder="Ingrédients"
+              />
+              <span class="chevron">
+                <svg
+                  width="16"
+                  height="11"
+                  viewBox="0 0 16 11"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="main-index__sort-label-icon-svg"
+                >
+                  <path
+                    d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z"
+                    fill="white"
+                  ></path>
+                </svg>
+              </span>
+            </button>
+            <div
+              class="inputContainer__tagContainer ingredientTagContainer invisible"
+            ></div>
+          </div>
+          <div class="advancedSearchByTag advancedSearchByTag--devices">
+            <button class="inputContainer">
+              <input type="text" id="input--devices" placeholder="Appareils" />
+              <span class="chevron">
+                <svg
+                  width="16"
+                  height="11"
+                  viewBox="0 0 16 11"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="main-index__sort-label-icon-svg"
+                >
+                  <path
+                    d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z"
+                    fill="white"
+                  ></path>
+                </svg>
+              </span>
+            </button>
+            <div
+              class="inputContainer__tagContainer devicesTagContainer invisible"
+            ></div>
+          </div>
+          <div class="advancedSearchByTag advancedSearchByTag--ustensils">
+            <button class="inputContainer">
+              <input
+                type="text"
+                id="input--ustensils"
+                placeholder="Ustensiles"
+              />
+              <span class="chevron">
+                <svg
+                  width="16"
+                  height="11"
+                  viewBox="0 0 16 11"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="main-index__sort-label-icon-svg"
+                >
+                  <path
+                    d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z"
+                    fill="white"
+                  ></path>
+                </svg>
+              </span>
+            </button>
+            <div
+              class="inputContainer__tagContainer ustensilsTagContainer invisible"
+            ></div>
+          </div>
+        </div>
+      </section>
+      <section id="recipe"></section>
+
+      <div id="noRecipeToDisplayMsg" class="invisible">
+        <p>
+          Aucune recette ne correspond à votre critère… vous pouvez chercher
+          «tarte aux pommes », « poisson », etc...
+        </p>
+      </div>
+    </main>
+    <script src="Script/Utils/fetcher.js" defer></script>
+    <script src="Script/Factory/recipe.js" defer></script>
+    <script src="Script/Utils/normalizers.js" defer></script>
+    <script src="Script/Utils/searchPrincipal.js" defer></script>
+    <script src="Script/Utils/searchTag.js" defer></script>
+    <script src="Script/Utils/eventsListeners.js" defer></script>
+    <script src="Script/Page/index.js" defer></script>
+  </body>
+</html>
