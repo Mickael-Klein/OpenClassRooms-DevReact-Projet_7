@@ -23,14 +23,16 @@ function searchPrincipal(e) {
     let tempArrForDevices = [];
     let tempArrForUstensils = [];
 
-    displayedRecipes.filter((recipe) => {
+    for (let i = 0; i < displayedRecipes.length; i++) {
       // Filtre Recettes et gère la visibilité recettes & tags dans le dom via classe "invisibleBysearch"
+      const recipe = displayedRecipes[i];
       const id = recipe.id;
       const name = recipe.name;
       const description = recipe.description;
-      const ingredients = recipe.ingredients.map(
-        (ingredient) => ingredient.ingredient
-      );
+      let ingredients = [];
+      for (let j = 0; j < recipe.ingredients.length; j++) {
+        ingredients.push(recipe.ingredients[j].ingredient);
+      }
 
       let isValidRecipe = false;
       let matchFound = false;
@@ -45,17 +47,12 @@ function searchPrincipal(e) {
         matchFound = true;
       }
 
-      if (
-        !matchFound &&
-        ingredients.some((i) => {
-          if (Regex.test(i)) {
-            matchFound = true;
-            return true;
-          }
-          return false;
-        })
-      ) {
-        isValidRecipe = true;
+      for (let j = 0; j < ingredients.length; j++) {
+        const ingredient = ingredients[j];
+        if (Regex.test(ingredient)) {
+          isValidRecipe = true;
+          break;
+        }
       }
 
       const article = document.querySelector(`[data-id="${id}"]`);
@@ -87,35 +84,79 @@ function searchPrincipal(e) {
         // Si recette invisible par search ou par tag, incrémenter le compteur
         articleOnDisplayNoneCounter++;
       }
-    });
+    }
 
     if (searchVisibilityHasBeenModified) {
       // Les modifications de tags ne se font que si des modifications de visibilité ont lieu
       // Arrays contenant les refs complètes
-      const regroupedCacheIngredients = regroupedCaches.find(
-        (obj) => obj.type === "ingredient"
-      );
-      const regroupedCacheDevices = regroupedCaches.find(
-        (obj) => obj.type === "device"
-      );
-      const regroupedCacheUstensils = regroupedCaches.find(
-        (obj) => obj.type === "ustensil"
-      );
+      let regroupedCacheIngredients;
+      for (let i = 0; i < regroupedCaches.length; i++) {
+        if (regroupedCaches[i].type === "ingredient") {
+          regroupedCacheIngredients = regroupedCaches[i];
+        }
+      }
 
-      let tempSetForIngredients = new Set(tempArrForIngredients.flat());
-      let tempSetForDevices = new Set(tempArrForDevices.flat());
-      let tempSetForUstensils = new Set(tempArrForUstensils.flat());
+      let regroupedCacheDevices;
+      for (let i = 0; i < regroupedCaches.length; i++) {
+        if (regroupedCaches[i].type === "device") {
+          regroupedCacheDevices = regroupedCaches[i];
+        }
+      }
 
-      // Arrays contenant les reférences qui doivent être passées à invisibleBySearch
-      const arrOfInvisibleIngredients = regroupedCacheIngredients.array.filter(
-        (elem) => !tempSetForIngredients.has(elem)
-      );
-      const arrOfInvisibleDevices = regroupedCacheDevices.array.filter(
-        (elem) => !tempSetForDevices.has(elem)
-      );
-      const arrOfInvisibleUstensils = regroupedCacheUstensils.array.filter(
-        (elem) => !tempSetForUstensils.has(elem)
-      );
+      let regroupedCacheUstensils;
+      for (let i = 0; i < regroupedCaches.length; i++) {
+        if (regroupedCaches[i].type === "ustensil") {
+          regroupedCacheUstensils = regroupedCaches[i];
+        }
+      }
+
+      tempArrForIngredients = tempArrForIngredients.flat();
+      tempArrForDevices = tempArrForDevices.flat();
+      tempArrForUstensils = tempArrForUstensils.flat();
+
+      let tempSetForIngredients = [];
+      for (let i = 0; i < tempArrForIngredients.length; i++) {
+        if (!tempSetForIngredients.includes(tempArrForIngredients[i])) {
+          tempSetForIngredients.push(tempArrForIngredients[i]);
+        }
+      }
+
+      let tempSetForDevices = [];
+      for (let i = 0; i < tempArrForDevices.length; i++) {
+        if (!tempSetForDevices.includes(tempArrForDevices[i])) {
+          tempSetForDevices.push(tempArrForDevices[i]);
+        }
+      }
+
+      let tempSetForUstensils = [];
+      for (let i = 0; i < tempArrForUstensils.length; i++) {
+        if (!tempSetForUstensils.includes(tempArrForUstensils[i])) {
+          tempSetForUstensils.push(tempArrForUstensils[i]);
+        }
+      }
+
+      const arrOfInvisibleIngredients = [];
+      for (let i = 0; i < regroupedCacheIngredients.array.length; i++) {
+        if (
+          !tempSetForIngredients.includes(regroupedCacheIngredients.array[i])
+        ) {
+          arrOfInvisibleIngredients.push(regroupedCacheIngredients.array[i]);
+        }
+      }
+
+      const arrOfInvisibleDevices = [];
+      for (let i = 0; i < regroupedCacheDevices.array.length; i++) {
+        if (!tempSetForDevices.includes(regroupedCacheDevices.array[i])) {
+          arrOfInvisibleDevices.push(regroupedCacheDevices.array[i]);
+        }
+      }
+
+      const arrOfInvisibleUstensils = [];
+      for (let i = 0; i < regroupedCacheUstensils.array.length; i++) {
+        if (!tempSetForUstensils.includes(regroupedCacheUstensils.array[i])) {
+          arrOfInvisibleUstensils.push(regroupedCacheUstensils.array[i]);
+        }
+      }
 
       // Attribution des 3 listes de tags dans le DOM à des constantes
       const ingredientsTagsList =
@@ -128,7 +169,8 @@ function searchPrincipal(e) {
       // Attribution class invisibleBySearch à l'ensemble des tags contenus dans les arrOfInvisible... en ciblant les li ayant le data-name correspondant
 
       function handleTagVisibility(tagList, arrOfInvisible) {
-        tagList.forEach((li) => {
+        for (let i = 0; i < tagList.length; i++) {
+          const li = tagList[i];
           const button = li.querySelector("button");
           const dataName = button.dataset.name;
           if (arrOfInvisible.includes(dataName)) {
@@ -141,7 +183,7 @@ function searchPrincipal(e) {
           ) {
             li.classList.remove(invisibleBySearchClass);
           }
-        });
+        }
       }
 
       handleTagVisibility(ingredientsTagsList, arrOfInvisibleIngredients);
@@ -153,17 +195,22 @@ function searchPrincipal(e) {
   function resetIsVisibleBySearchProperties() {
     // Reset les status dans les objets recette si des modifications de status on eu lieu depuis initialisation ou reset
     if (searchVisibilityHasBeenModified) {
-      displayedRecipes.forEach((recipe) => {
+      for (let i = 0; i < displayedRecipes.length; i++) {
+        const recipe = displayedRecipes[i];
         if (!recipe.isVisibleBySearch) {
           recipe.isVisibleBySearch = true;
         }
-      });
+      }
+
       const invisibeBySearchElemNodeList = document.querySelectorAll(
-        `.` + invisibleBySearchClass
+        `.${invisibleBySearchClass}`
       );
-      invisibeBySearchElemNodeList.forEach((elem) =>
-        elem.classList.remove(invisibleBySearchClass)
-      );
+
+      for (let i = 0; i < invisibeBySearchElemNodeList.length; i++) {
+        const elem = invisibeBySearchElemNodeList[i];
+        elem.classList.remove(invisibleBySearchClass);
+      }
+
       searchVisibilityHasBeenModified = false;
     }
   }
