@@ -1,3 +1,0 @@
-Lorsque input tag selected, clique en dehors repasse à l'état de base, et si tags visible, le clique sur input ne ferme pas le tag container (utiliser focus ?) ou unselected forcé
-
-chnager police de caractères et font-weight
