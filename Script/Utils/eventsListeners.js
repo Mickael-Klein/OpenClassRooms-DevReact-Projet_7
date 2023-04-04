@@ -19,7 +19,6 @@ function addEventsListenersOnPage() {
 
   function handleTagInputChange(f) {
     const inputValue = stringNormalizer(f.target.value);
-    console.log(inputValue);
     const container = f.target.closest(".advancedSearchByTag");
     const tagContainer = container.querySelector(
       ".inputContainer__tagContainer"
