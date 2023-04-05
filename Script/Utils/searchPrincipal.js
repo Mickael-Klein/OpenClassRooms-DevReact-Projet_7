@@ -7,8 +7,6 @@ function searchPrincipal(e) {
   const value = e.target.value.trim();
   const currentLength = value.length;
 
-  let numberOfRecipesOnDisplayNone = 0; // Si === displayedRecipe.length alors display message dans le dom de recherche échouée
-
   const Regex = new RegExp(value, "i"); // Regex de comparaison qui ignore la casse (pas besoin de normaliser input ou éléments contenus dans tableau)
 
   const invisibleBySearchClass = "invisibleBySearch";
