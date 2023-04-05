@@ -1,2 +1,2 @@
 Pseudo Complete benchmark:
-"https://jsben.ch/ehAUu";
+"https://jsben.ch/aieX2";
